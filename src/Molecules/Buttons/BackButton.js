@@ -10,7 +10,6 @@ export const BackButton = ({ onPress }) => {
 };
 BackButton.Wrapper = styled.TouchableOpacity`
 	height: 50px;
-	flex: 1;
 `;
 BackButton.Text = styled.Text`
 	color: ${props => props.theme.text.color.primary};

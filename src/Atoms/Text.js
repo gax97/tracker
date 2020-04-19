@@ -15,5 +15,5 @@ export const placeholderTextStyle = css`
 `;
 export const inputTextStyle = css`
 	font-style: normal;
-	font-size: 16px;
+	font-size: 18px;
 `;

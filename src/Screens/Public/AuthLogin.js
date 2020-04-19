@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, Alert } from 'react-native';
 import styled from 'styled-components';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';
@@ -24,6 +24,7 @@ const AuthLoginWrapper = styled.SafeAreaView`
 export function AuthLogin({ navigation }) {
 	const ThemeContext = useContext(ThemeManagerContext);
 	const emailRef = useRef();
+	const passwordRef = useRef();
 	useEffect(() => {
 		console.log(emailRef.current.getValue());
 	}, [emailRef.current]);
@@ -37,9 +38,20 @@ export function AuthLogin({ navigation }) {
 					<Logo>TRACKER</Logo>
 					<BigDivider />
 					<FlexColumn>
-						<Input placeholder="email" ref={emailRef} />
+						<Input
+							ref={emailRef}
+							placeholder="email"
+							onEditingEnd={() => passwordRef.current.focus()}
+						/>
 						<SmallDivider />
-						<Input secure placeholder="password" type="password" />
+						<Input
+							last
+							secure
+							type="password"
+							ref={passwordRef}
+							placeholder="password"
+							onEditingEnd={() => Alert.alert("Submited")}
+						/>
 						<MediumDivider />
 						<ConfirmButton text="Sign In" />
 						<SmallDivider />

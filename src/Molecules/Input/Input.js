@@ -18,9 +18,10 @@ const StyledTextInput = styled.TextInput`
 		props.placeholderVisible ? placeholderTextStyle : inputTextStyle};
 `;
 
-const Input = ({ placeholder, type }, ref) => {
+const Input = ({ placeholder, type, last, onEditingEnd }, ref) => {
 	const [value, onChangeText] = React.useState('');
 	const currentTheme = useTheme();
+	const localRef = React.useRef();
 	const [passwordVisible, setPasswordVisible] = React.useState(
 		type === 'password',
 	);
@@ -29,12 +30,13 @@ const Input = ({ placeholder, type }, ref) => {
 		getValue: () => value,
 		resetState: () => {},
 		setValue: () => {},
+		focus: () => localRef.current.focus(),
 	}));
 
 	return (
 		<RelativeWrapper>
 			<StyledTextInput
-				ref={ref}
+				ref={localRef}
 				autoCapitalize="none"
 				onChangeText={text => onChangeText(text)}
 				placeholder={placeholder}
@@ -43,7 +45,9 @@ const Input = ({ placeholder, type }, ref) => {
 				value={value}
 				placeholderVisible={value.length === 0}
 				secureTextEntry={passwordVisible}
-				// returnKeyType="done"
+				enablesReturnKeyAutomatically
+				returnKeyType={last ? 'done' : 'next'}
+				onSubmitEditing={onEditingEnd}
 			/>
 			{type === 'password' && (
 				<PasswordEyeIcon

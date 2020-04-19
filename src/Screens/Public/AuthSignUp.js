@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { StatusBar } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import styled from 'styled-components';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';
@@ -39,15 +39,25 @@ export function AuthSignUp({ navigation }) {
 					<Logo>TRACKER</Logo>
 					<BigDivider />
 					<FlexColumn>
-						<Input placeholder="username" ref={usernameRef} />
-						<SmallDivider />
-						<Input placeholder="email" ref={emailRef} />
+						<Input
+							placeholder="username"
+							ref={usernameRef}
+							onEditingEnd={() => emailRef.current.focus()}
+						/>
 						<SmallDivider />
 						<Input
+							placeholder="email"
+							ref={emailRef}
+							onEditingEnd={() => passwordRef.current.focus()}
+						/>
+						<SmallDivider />
+						<Input
+							last
 							secure
 							placeholder="password"
 							type="password"
 							ref={passwordRef}
+							onEditingEnd={() => Alert.alert('Submited')}
 						/>
 						<MediumDivider />
 						<ConfirmButton text="Sign Up" />

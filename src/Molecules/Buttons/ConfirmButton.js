@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseText } from '../../Atoms/Text';
+import PropTypes from 'prop-types';
 import { BaseButton } from '../../Atoms/Button';
 
 export const ConfirmButton = ({ text, onPress }) => {
 	return (
 		<ConfirmButton.Wrapper onPress={onPress}>
-			<BaseText>{text}</BaseText>
+			<ConfirmButton.Text>{text}</ConfirmButton.Text>
 		</ConfirmButton.Wrapper>
 	);
 };
@@ -17,3 +17,11 @@ ConfirmButton.Wrapper = styled(BaseButton)`
 	height: 40px;
 	border-radius: 18px;
 `;
+ConfirmButton.Text = styled.Text`
+	color: ${props => props.theme.text.color.primary};
+	font-size: 16px;
+`;
+ConfirmButton.propTypes = {
+	onPress: PropTypes.func,
+	text: PropTypes.string,
+};
