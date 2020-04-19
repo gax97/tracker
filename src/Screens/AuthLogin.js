@@ -1,5 +1,13 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, StatusBar, Text, TextInput, View } from 'react-native';
+import {
+	SafeAreaView,
+	StatusBar,
+	Text,
+	TextInput,
+	View,
+	Alert,
+	TouchableWithoutFeedback,
+} from 'react-native';
 import { BaseView, centerFlex } from '../Atoms/Flex';
 import { BaseButton } from '../Atoms/Button';
 import {
@@ -8,8 +16,16 @@ import {
 	Themes,
 } from '../Context/ThemeManager';
 import { BaseText } from '../Atoms/Text';
-import styled from 'styled-components';
-import { BigDivider, MediumDivider, SmallDivider } from '../Atoms/Dividers';
+import styled, { css, useTheme } from 'styled-components';
+import {
+	BaseDivider,
+	BigDivider,
+	MediumDivider,
+	SmallDivider,
+} from '../Atoms/Dividers';
+import { OpenEye, ClosedEye } from '../Atoms/Icons/svg';
+import { GreenLink } from '../Atoms/Links';
+import { Screens } from '../Lib/screens';
 
 const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
 	padding-left: 20px;
@@ -22,11 +38,20 @@ const AuthLoginWrapper = styled.SafeAreaView`
 `;
 const Logo = styled.Text`
 	color: #20c284;
-	font-size: 26px;
+	font-size: 32px;
 	align-self: center;
+	font-weight: bold;
+`;
+const placeholderTextStyle = css`
+	font-style: italic;
+	font-size: 14px;
+`;
+const inputTextStyle = css`
+	font-style: normal;
+	font-size: 16px;
 `;
 const StyledTextInput = styled.TextInput`
-	color: white;
+	color: ${props => props.theme.text.color.primary};
 	height: 50px;
 	border-radius: 1px;
 	align-self: stretch;
@@ -35,10 +60,16 @@ const StyledTextInput = styled.TextInput`
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 10px;
+	${props =>
+		props.placeholderVisible ? placeholderTextStyle : inputTextStyle};
 `;
 
-const Input = ({ placeholder }) => {
-	const [value, onChangeText] = React.useState();
+const Input = ({ placeholder, icon, type }) => {
+	const [value, onChangeText] = React.useState('');
+	const currentTheme = useTheme();
+	const [passwordVisible, setPasswordVisible] = React.useState(
+		type === 'password',
+	);
 
 	return (
 		<View style={{ width: '100%', position: 'relative' }}>
@@ -46,12 +77,20 @@ const Input = ({ placeholder }) => {
 				autoCapitalize="none"
 				onChangeText={text => onChangeText(text)}
 				placeholder={placeholder}
-				placeholderTextColor="white"
+				placeholderTextColor={currentTheme.text.color.primary}
 				textContentType="emailAddress"
 				value={value}
+				placeholderVisible={value.length === 0}
+				secureTextEntry={passwordVisible}
 				// returnKeyType="done"
 			/>
-			<Text style={{ position: 'absolute', right: 0, bottom: 10, color: 'white' }}>show</Text>
+			{type === 'password' && (
+				<PasswordEye
+					onPress={() => setPasswordVisible(prevState => !prevState)}
+					visible={passwordVisible}
+				/>
+			)}
+			{icon}
 		</View>
 	);
 };
@@ -77,26 +116,54 @@ const FlexColumn = styled.View`
 	${centerFlex};
 `;
 
-export function AuthLogin() {
+const PasswordEye = ({ visible, onPress }) => {
+	if (visible) {
+		return (
+			<TouchableWithoutFeedback onPress={onPress}>
+				<View style={{ position: 'absolute', right: 5, top: 25 }}>
+					<OpenEye />
+				</View>
+			</TouchableWithoutFeedback>
+		);
+	}
+
+	return (
+		<TouchableWithoutFeedback onPress={onPress}>
+			<View style={{ position: 'absolute', right: 5, top: 25 }}>
+				<ClosedEye />
+			</View>
+		</TouchableWithoutFeedback>
+	);
+};
+
+export function AuthLogin({ navigation }) {
+	const ThemeContext = useContext(ThemeManagerContext);
+
 	return (
 		<>
 			<StatusBar barStyle="dark-content" />
 			<AuthLoginWrapper>
-				<StyledKeyboardAvoidingView behavior="padding">
+				<StyledKeyboardAvoidingView>
 					<BigDivider />
 					<Logo>TRACKER</Logo>
 					<BigDivider />
 					<FlexColumn>
 						<Input placeholder="email" />
 						<SmallDivider />
-						<Input placeholder="password" />
+						<Input secure placeholder="password" type="password" />
 						<MediumDivider />
 						<Button text="Sign In" />
-						<MediumDivider />
-						<FlexRow>
-							<Text>Or </Text>
-							<Text>Sign Up</Text>
-						</FlexRow>
+						<SmallDivider />
+						<BaseText>Already a member?</BaseText>
+						<BaseDivider />
+						<GreenLink
+							text={'SIGN IN'}
+							onPress={() => navigation.push(Screens.SignUp)}
+						/>
+						<SmallDivider />
+						<BaseButton onPress={ThemeContext.toggleTheme}>
+							<BaseText>Change theme</BaseText>
+						</BaseButton>
 					</FlexColumn>
 				</StyledKeyboardAvoidingView>
 			</AuthLoginWrapper>

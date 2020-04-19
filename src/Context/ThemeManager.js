@@ -6,6 +6,7 @@ import { useColorScheme, Alert } from 'react-native';
 export const Themes = {
 	light: {
 		colorPrimary: '#ffffff',
+		colorSecondary: 'black',
 		buttonPrimary: 'orange',
 		background: '#ffffff',
 		text: {
@@ -17,6 +18,7 @@ export const Themes = {
 	},
 	dark: {
 		colorPrimary: '#1F2630',
+		colorSecondary: 'white',
 		buttonPrimary: 'red',
 		background: '#1F2630',
 		text: {
