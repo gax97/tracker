@@ -108,7 +108,6 @@ module.exports = {
     'react-native/split-platform-components': 'warn',
     'react-native/no-inline-styles': 'warn',
     'react-native/no-color-literals': 'off',
-    'react-native/no-raw-text': 'error',
 
     /* React-Hooks Plugin */
     'react-hooks/rules-of-hooks': 'error',

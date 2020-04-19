@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView, StatusBar, Text, View } from 'react-native';
 import { BaseView } from '../Atoms/Flex';
 import { BaseButton } from '../Atoms/Button';
@@ -16,8 +16,8 @@ export function Tracker({ navigation }) {
 
 	return (
 		<>
-			<StatusBar barStyle="dark-content" backgroundColor="red"/>
-			<SafeAreaView style={{backgroundColor: 'red' }}>
+			<StatusBar barStyle="dark-content" backgroundColor="red" />
+			<SafeAreaView>
 				<BaseView>
 					<Text>Start</Text>
 					<BaseButton

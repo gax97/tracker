@@ -1,25 +1,45 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {ThemeProvider} from 'styled-components';
-import { useColorScheme } from 'react-native';
+import { ThemeProvider } from 'styled-components';
+import { useColorScheme, Alert } from 'react-native';
 
 export const Themes = {
 	light: {
 		colorPrimary: '#ffffff',
 		buttonPrimary: 'orange',
 		background: '#ffffff',
+		text: {
+			color: {
+				primary: '#1F2630',
+				secondary: 'gray',
+			},
+		},
 	},
 	dark: {
-		colorPrimary: '#000000',
+		colorPrimary: '#1F2630',
 		buttonPrimary: 'red',
-		background: '#000000',
+		background: '#1F2630',
+		text: {
+			color: {
+				primary: '#ffffff',
+				secondary: 'blue',
+			},
+		},
 	},
 };
 export const ThemeManagerContext = React.createContext({});
 
 export const ThemeManager = ({ children }) => {
 	const colorSchemeName = useColorScheme();
-	const [theme, setTheme] = useState(Themes.light);
+	const [theme, setTheme] = useState(Themes.dark);
+
+	// useEffect(() => {
+	// 	if (colorSchemeName === 'dark') {
+	// 		setTheme(Themes.dark);
+	// 	} else {
+	// 		setTheme(Themes.light);
+	// 	}
+	// }, [colorSchemeName]);
 
 	const toggleTheme = () => {
 		if (theme === Themes.light) {
@@ -28,13 +48,6 @@ export const ThemeManager = ({ children }) => {
 			setTheme(Themes.light);
 		}
 	};
-	useEffect(() => {
-		if (colorSchemeName === 'dark') {
-			setTheme(Themes.dark);
-		} else {
-			setTheme(Themes.light);
-		}
-	}, [colorSchemeName]);
 
 	return (
 		<ThemeManagerContext.Provider value={{ theme, toggleTheme }}>
