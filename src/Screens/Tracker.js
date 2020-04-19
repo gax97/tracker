@@ -1,12 +1,8 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, StatusBar, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar, Text } from 'react-native';
 import { BaseView } from '../Atoms/Flex';
 import { BaseButton } from '../Atoms/Button';
-import {
-	ThemeManager,
-	ThemeManagerContext,
-	Themes,
-} from '../Context/ThemeManager';
+import { ThemeManagerContext } from '../Context/ThemeManager';
 import { BaseText } from '../Atoms/Text';
 import { Screens } from '../Lib/screens';
 import { BaseDivider } from '../Atoms/Dividers';

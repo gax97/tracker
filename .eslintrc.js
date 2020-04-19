@@ -67,18 +67,6 @@ module.exports = {
     'react/jsx-pascal-case': 'error', // Enforces coding style that user-defined JSX components are defined and referenced in PascalCase.
     'react/jsx-props-no-multi-spaces': 'warn', // Enforces that there is exactly one space between all attributes and after tag name and the first attribute in the same line.
     'react/jsx-sort-default-props': 'off', // This rule checks all components and verifies that all defaultProps declarations are sorted alphabetically.
-    'react/jsx-sort-props': [
-      'warn',
-      {
-        // This rule checks all JSX components and verifies that all props are sorted alphabetically.
-        callbacksLast: true,
-        shorthandFirst: true,
-        shorthandLast: false,
-        ignoreCase: true,
-        noSortAlphabetically: true,
-        reservedFirst: false,
-      },
-    ],
     'react/jsx-tag-spacing': [
       'warn',
       {
