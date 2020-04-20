@@ -2,13 +2,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { Private } from './Private';
 import { Public } from './Public';
+import { UserManagerContext } from '../Context/UserManager';
 
 export const MainRouter = () => {
-	const isLoggedIn = false;
+	const { user } = React.useContext(UserManagerContext);
 
 	return (
 		<NavigationContainer>
-			{isLoggedIn ? <Private /> : <Public />}
+			{user.get('loggedIn') ? <Private /> : <Public />}
 		</NavigationContainer>
 	);
 };

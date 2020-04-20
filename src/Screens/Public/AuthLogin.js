@@ -50,7 +50,7 @@ export function AuthLogin({ navigation }) {
 							type="password"
 							ref={passwordRef}
 							placeholder="password"
-							onEditingEnd={() => Alert.alert("Submited")}
+							onEditingEnd={() => Alert.alert('Submited')}
 						/>
 						<MediumDivider />
 						<ConfirmButton text="Sign In" />

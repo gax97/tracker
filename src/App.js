@@ -4,12 +4,15 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemeManager } from './Context/ThemeManager';
 import { MainRouter } from './Screens/MainRouter';
+import { UserManager } from './Context/UserManager';
 
 const App = () => {
 	return (
 		<SafeAreaProvider>
 			<ThemeManager>
-				<MainRouter />
+				<UserManager>
+					<MainRouter />
+				</UserManager>
 			</ThemeManager>
 		</SafeAreaProvider>
 	);

@@ -1,10 +1,16 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import { Alert, StatusBar } from 'react-native';
-import styled from 'styled-components';
+import React, {
+	useContext,
+	useEffect,
+	useRef,
+	useCallback,
+	useState,
+} from 'react';
+import { ActivityIndicator, Alert, StatusBar, Text } from 'react-native';
+import styled, { css } from 'styled-components';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';
 import { BaseButton } from '../../Atoms/Button';
-import { BaseText, Logo } from '../../Atoms/Text';
+import { BaseText, ErrorMessage, Logo } from '../../Atoms/Text';
 import {
 	BaseDivider,
 	BigDivider,
@@ -16,19 +22,57 @@ import { StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
 import { Screens } from '../../Lib/screens';
 import { ConfirmButton } from '../../Molecules/Buttons/ConfirmButton';
 import Input from '../../Molecules/Input/Input';
+import Api from '../../Lib/api';
+import { UserManagerContext } from '../../Context/UserManager';
+import qs from 'qs';
+import UserService from '../../Lib/services/UserService';
 
 const AuthLoginWrapper = styled.SafeAreaView`
 	background-color: ${props => props.theme.colorPrimary};
 `;
+const overlayCss = css`
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+`;
+const Overlay = styled.View`
+	${overlayCss};
+	background-color: rgba(0, 0, 0, 0.7);
+`;
+const Loader = styled.ActivityIndicator`
+	${overlayCss};
+`;
 
 export function AuthSignUp({ navigation }) {
 	const ThemeContext = useContext(ThemeManagerContext);
-	const usernameRef = useRef();
+	const { setUser } = useContext(UserManagerContext);
+	const [errorMessage, setErrorMessage] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const emailRef = useRef();
+	const usernameRef = useRef();
 	const passwordRef = useRef();
 	useEffect(() => {
 		console.log(emailRef.current.getValue());
 	}, [emailRef.current]);
+
+	const handleSignUp = useCallback(async () => {
+		setLoading(true);
+
+		try {
+			UserService.signUp(
+				emailRef.current.getValue(),
+				usernameRef.current.getValue(),
+				passwordRef.current.getValue(),
+			);
+			setUser(state => state.set('loggedIn', true));
+		} catch (error) {
+			setErrorMessage(error.response.data.message);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
 	return (
 		<>
@@ -38,6 +82,7 @@ export function AuthSignUp({ navigation }) {
 					<BigDivider />
 					<Logo>TRACKER</Logo>
 					<BigDivider />
+					{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 					<FlexColumn>
 						<Input
 							placeholder="username"
@@ -57,10 +102,10 @@ export function AuthSignUp({ navigation }) {
 							placeholder="password"
 							type="password"
 							ref={passwordRef}
-							onEditingEnd={() => Alert.alert('Submited')}
+							onEditingEnd={handleSignUp}
 						/>
 						<MediumDivider />
-						<ConfirmButton text="Sign Up" />
+						<ConfirmButton text="Sign Up" onPress={handleSignUp} />
 						<SmallDivider />
 						<FlexRowAlignCenter>
 							<BaseText>Already a member?</BaseText>
@@ -77,6 +122,11 @@ export function AuthSignUp({ navigation }) {
 					</FlexColumn>
 				</StyledKeyboardAvoidingView>
 			</AuthLoginWrapper>
+			{loading && (
+				<Overlay>
+					<Loader color="white" size="large" />
+				</Overlay>
+			)}
 		</>
 	);
 }

@@ -17,3 +17,8 @@ export const inputTextStyle = css`
 	font-style: normal;
 	font-size: 18px;
 `;
+export const ErrorMessage = styled.Text`
+	color: #ae0707;
+	font-size: 16px;
+	font-weight: 500;
+`;
