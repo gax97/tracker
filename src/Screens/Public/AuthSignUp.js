@@ -1,12 +1,6 @@
-import React, {
-	useContext,
-	useEffect,
-	useRef,
-	useCallback,
-	useState,
-} from 'react';
-import { ActivityIndicator, Alert, StatusBar, Text } from 'react-native';
-import styled, { css } from 'styled-components';
+import React, { useCallback, useContext, useRef, useState } from 'react';
+import { StatusBar } from 'react-native';
+import styled from 'styled-components';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';
 import { BaseButton } from '../../Atoms/Button';
@@ -18,55 +12,43 @@ import {
 	SmallDivider,
 } from '../../Atoms/Dividers';
 import { GreenLink } from '../../Atoms/Links';
-import { StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
+import { Overlay, StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
 import { Screens } from '../../Lib/screens';
 import { ConfirmButton } from '../../Molecules/Buttons/ConfirmButton';
 import Input from '../../Molecules/Input/Input';
-import Api from '../../Lib/api';
 import { UserManagerContext } from '../../Context/UserManager';
-import qs from 'qs';
 import UserService from '../../Lib/services/UserService';
+import { Loader } from '../../Atoms/Loaders';
 
 const AuthLoginWrapper = styled.SafeAreaView`
 	background-color: ${props => props.theme.colorPrimary};
 `;
-const overlayCss = css`
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 0;
-`;
-const Overlay = styled.View`
-	${overlayCss};
-	background-color: rgba(0, 0, 0, 0.7);
-`;
-const Loader = styled.ActivityIndicator`
-	${overlayCss};
-`;
 
 export function AuthSignUp({ navigation }) {
 	const ThemeContext = useContext(ThemeManagerContext);
-	const { setUser } = useContext(UserManagerContext);
+	const { login } = useContext(UserManagerContext);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const emailRef = useRef();
 	const usernameRef = useRef();
 	const passwordRef = useRef();
-	useEffect(() => {
-		console.log(emailRef.current.getValue());
-	}, [emailRef.current]);
 
 	const handleSignUp = useCallback(async () => {
 		setLoading(true);
 
 		try {
-			UserService.signUp(
+			const response = await UserService.signUp(
 				emailRef.current.getValue(),
 				usernameRef.current.getValue(),
 				passwordRef.current.getValue(),
 			);
-			setUser(state => state.set('loggedIn', true));
+			const { user, accessToken } = response.data;
+			login(
+				user.fullName,
+				user.email,
+				accessToken.accessToken,
+				accessToken.refreshToken,
+			);
 		} catch (error) {
 			setErrorMessage(error.response.data.message);
 		} finally {

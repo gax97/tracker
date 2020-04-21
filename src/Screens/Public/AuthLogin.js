@@ -1,10 +1,16 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, {
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { StatusBar, Alert } from 'react-native';
 import styled from 'styled-components';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';
 import { BaseButton } from '../../Atoms/Button';
-import { BaseText, Logo } from '../../Atoms/Text';
+import { BaseText, ErrorMessage, Logo } from '../../Atoms/Text';
 import {
 	BaseDivider,
 	BigDivider,
@@ -12,10 +18,13 @@ import {
 	SmallDivider,
 } from '../../Atoms/Dividers';
 import { GreenLink } from '../../Atoms/Links';
-import { StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
+import { Overlay, StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
 import { Screens } from '../../Lib/screens';
 import { ConfirmButton } from '../../Molecules/Buttons/ConfirmButton';
 import Input from '../../Molecules/Input/Input';
+import UserService from '../../Lib/services/UserService';
+import { UserManagerContext } from '../../Context/UserManager';
+import { Loader } from '../../Atoms/Loaders';
 
 const AuthLoginWrapper = styled.SafeAreaView`
 	background-color: ${props => props.theme.colorPrimary};
@@ -23,11 +32,33 @@ const AuthLoginWrapper = styled.SafeAreaView`
 
 export function AuthLogin({ navigation }) {
 	const ThemeContext = useContext(ThemeManagerContext);
+	const { login } = useContext(UserManagerContext);
+	const [errorMessage, setErrorMessage] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const emailRef = useRef();
 	const passwordRef = useRef();
-	useEffect(() => {
-		console.log(emailRef.current.getValue());
-	}, [emailRef.current]);
+
+	const handleSignIn = useCallback(async () => {
+		setLoading(true);
+
+		try {
+			const response = await UserService.signIn(
+				emailRef.current.getValue(),
+				passwordRef.current.getValue(),
+			);
+			const { user, accessToken } = response.data;
+			login(
+				user.fullName,
+				user.email,
+				accessToken.accessToken,
+				accessToken.refreshToken,
+			);
+		} catch (error) {
+			setErrorMessage(error.response.data.message);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
 	return (
 		<>
@@ -37,6 +68,7 @@ export function AuthLogin({ navigation }) {
 					<BigDivider />
 					<Logo>TRACKER</Logo>
 					<BigDivider />
+					{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 					<FlexColumn>
 						<Input
 							ref={emailRef}
@@ -50,10 +82,10 @@ export function AuthLogin({ navigation }) {
 							type="password"
 							ref={passwordRef}
 							placeholder="password"
-							onEditingEnd={() => Alert.alert('Submited')}
+							onEditingEnd={handleSignIn}
 						/>
 						<MediumDivider />
-						<ConfirmButton text="Sign In" />
+						<ConfirmButton text="Sign In" onPress={handleSignIn} />
 						<SmallDivider />
 						<FlexRowAlignCenter>
 							<BaseText>Not a member?</BaseText>
@@ -70,6 +102,11 @@ export function AuthLogin({ navigation }) {
 					</FlexColumn>
 				</StyledKeyboardAvoidingView>
 			</AuthLoginWrapper>
+			{loading && (
+				<Overlay>
+					<Loader color="white" size="large" />
+				</Overlay>
+			)}
 		</>
 	);
 }
