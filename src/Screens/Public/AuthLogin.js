@@ -1,30 +1,18 @@
-import React, {
-	useCallback,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
-import { StatusBar, Alert } from 'react-native';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';
 import { BaseButton } from '../../Atoms/Button';
 import { BaseText, ErrorMessage, Logo } from '../../Atoms/Text';
-import {
-	BaseDivider,
-	BigDivider,
-	MediumDivider,
-	SmallDivider,
-} from '../../Atoms/Dividers';
+import { BaseDivider, BigDivider, MediumDivider, SmallDivider, } from '../../Atoms/Dividers';
 import { GreenLink } from '../../Atoms/Links';
-import { Overlay, StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
+import { StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
 import { Screens } from '../../Lib/screens';
 import { ConfirmButton } from '../../Molecules/Buttons/ConfirmButton';
 import Input from '../../Molecules/Input/Input';
 import UserService from '../../Lib/services/UserService';
 import { UserManagerContext } from '../../Context/UserManager';
-import { Loader } from '../../Atoms/Loaders';
+import { OverlayLoader } from '../../Atoms/Loaders';
 
 const AuthLoginWrapper = styled.SafeAreaView`
 	background-color: ${props => props.theme.colorPrimary};
@@ -62,7 +50,6 @@ export function AuthLogin({ navigation }) {
 
 	return (
 		<>
-			<StatusBar barStyle="dark-content" />
 			<AuthLoginWrapper>
 				<StyledKeyboardAvoidingView>
 					<BigDivider />
@@ -102,11 +89,7 @@ export function AuthLogin({ navigation }) {
 					</FlexColumn>
 				</StyledKeyboardAvoidingView>
 			</AuthLoginWrapper>
-			{loading && (
-				<Overlay>
-					<Loader color="white" size="large" />
-				</Overlay>
-			)}
+			<OverlayLoader loading={loading} />
 		</>
 	);
 }

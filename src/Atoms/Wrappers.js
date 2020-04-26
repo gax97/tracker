@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
 	padding-left: 20px;
@@ -20,4 +20,16 @@ export const overlayCss = css`
 export const Overlay = styled.View`
 	${overlayCss};
 	background-color: rgba(0, 0, 0, 0.7);
+`;
+export const FlexRow = styled.View`
+	flex-direction: row;
+`;
+export const flexRow = css`
+	flex-direction: row;
+`
+export const CenterFlexStretch = styled.View`
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	align-self: stretch;
 `;

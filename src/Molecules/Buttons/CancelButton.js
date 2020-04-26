@@ -3,25 +3,25 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { BaseButton } from '../../Atoms/Button';
 
-export const ConfirmButton = ({ text, onPress }) => {
+export const CancelButton = ({ text, onPress }) => {
 	return (
-		<ConfirmButton.Wrapper onPress={onPress}>
-			<ConfirmButton.Text>{text}</ConfirmButton.Text>
-		</ConfirmButton.Wrapper>
+		<CancelButton.Wrapper onPress={onPress}>
+			<CancelButton.Text>{text}</CancelButton.Text>
+		</CancelButton.Wrapper>
 	);
 };
-ConfirmButton.Wrapper = styled(BaseButton)`
-	background-color: #20c284;
+CancelButton.Wrapper = styled(BaseButton)`
+	background-color: #db5050;
 	color: white;
 	width: 100%;
 	height: 40px;
 	border-radius: 18px;
 `;
-ConfirmButton.Text = styled.Text`
+CancelButton.Text = styled.Text`
 	color: white;
 	font-size: 16px;
 `;
-ConfirmButton.propTypes = {
+CancelButton.propTypes = {
 	onPress: PropTypes.func,
 	text: PropTypes.string,
 };

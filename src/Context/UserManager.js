@@ -1,5 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Map } from 'immutable';
+import { Loader } from '../Atoms/Loaders';
+import Api from '../Lib/api';
+import { usePersistedStorage } from '../Hooks/usePersistedStorage';
 
 export const UserManagerContext = React.createContext({});
 const initialState = Map({
@@ -11,7 +14,11 @@ const initialState = Map({
 });
 
 export const UserManager = ({ children }) => {
-	const [user, setUser] = React.useState(initialState);
+	const [user, setUser, loading] = usePersistedStorage(initialState, 'user');
+	const token = user.get('accessToken');
+	useEffect(() => {
+		Api.setToken(token);
+	}, [token]);
 
 	const logout = useCallback(() => {
 		setUser(initialState);
@@ -27,6 +34,10 @@ export const UserManager = ({ children }) => {
 				.set('refreshToken', refreshToken),
 		);
 	}, []);
+
+	if (loading) {
+		return <Loader />;
+	}
 
 	return (
 		<UserManagerContext.Provider value={{ user, setUser, logout, login }}>

@@ -3,6 +3,10 @@ import styled, { css } from 'styled-components';
 export const BaseText = styled.Text`
 	color: ${props => props.theme.text.color.primary};
 `;
+export const TextLarge = styled(BaseText)`
+	font-size: 24px;
+	${props => props.color && `color: ${props.color}`};
+`;
 export const Logo = styled.Text`
 	color: #20c284;
 	font-size: 32px;

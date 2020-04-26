@@ -58,7 +58,6 @@ export function AuthSignUp({ navigation }) {
 
 	return (
 		<>
-			<StatusBar barStyle="dark-content" />
 			<AuthLoginWrapper>
 				<StyledKeyboardAvoidingView>
 					<BigDivider />

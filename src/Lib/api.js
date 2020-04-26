@@ -13,6 +13,7 @@ const config = {
 class Api {
 	constructor(config) {
 		this.api = axios.create(config);
+		this.token = null;
 	}
 
 	get(path) {
@@ -21,6 +22,10 @@ class Api {
 
 	post(path, body, headers) {
 		return this.api.post(path, body, { headers: { ...headers } });
+	}
+
+	setToken(token) {
+		this.token = token;
 	}
 }
 

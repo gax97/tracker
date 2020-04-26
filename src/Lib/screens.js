@@ -1,7 +1,7 @@
 export const Screens = {
 	Login: 'Login',
 	SignUp: 'SignUp',
-	Dashboard: 'Dashboard',
+	Profile: 'Profile',
 	Reports: 'Reports',
 	Tracker: 'Tracker',
 }
