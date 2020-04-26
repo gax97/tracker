@@ -1,32 +1,21 @@
 import React, {
 	useCallback,
 	useContext,
-	useEffect,
 	useLayoutEffect,
 	useState,
 } from 'react';
-import { Dimensions } from 'react-native';
-import { FlexRowAlignCenter } from '../../Atoms/Flex';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { BaseText, TextLarge } from '../../Atoms/Text';
 import { MediumDivider } from '../../Atoms/Dividers';
-import { UserManagerContext } from '../../Context/UserManager';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import {
-	CenterFlexStretch,
-	flexRow,
-	FlexRow,
-	Overlay,
-} from '../../Atoms/Wrappers';
-import { GreenLink } from '../../Atoms/Links';
+import { CenterFlexStretch, FlexRow } from '../../Atoms/Wrappers';
 import { ConfirmButton } from '../../Molecules/Buttons/ConfirmButton';
 import TimerService from '../../Lib/services/TimerService';
 import { CancelButton } from '../../Molecules/Buttons/CancelButton';
-import { formatTime } from '../../Lib/helpers';
-import { Loader, OverlayLoader } from '../../Atoms/Loaders';
-import ClockIcon from '../../Atoms/Icons/Svg/Clock';
-import { TimerContext, TimerManager } from '../../Context/TimerManager';
+import { OverlayLoader } from '../../Atoms/Loaders';
+import { TimerContext } from '../../Context/TimerManager';
+import { TimeDisplay } from '../../Molecules/TimeDisplay';
 
 var duration = require('dayjs/plugin/duration');
 
@@ -35,11 +24,6 @@ const PageWrapper = styled.SafeAreaView`
 	background-color: ${props => props.theme.colorPrimary};
 	flex: 1;
 	align-items: center;
-`;
-const FontSize = (Dimensions.get('window').width - 200) / 3;
-const TimeNumbersWrapper = styled.View`
-	${flexRow};
-	min-width: ${FontSize + 20};
 `;
 const TopSectionWrapper = styled.View`
 	align-self: flex-start;
@@ -54,32 +38,6 @@ const BottomSectionWrapper = styled.View`
 	flex: 1;
 	align-self: stretch;
 `;
-
-function TimeDisplay(props: {
-	displayTime: { hour: string, minute: string, second: string },
-}) {
-	return (
-		<FlexRowAlignCenter>
-			<TimeNumbersWrapper>
-				<BaseText style={{ fontSize: FontSize }}>
-					{props.displayTime.hour}
-				</BaseText>
-				<BaseText style={{ fontSize: FontSize }}>:</BaseText>
-			</TimeNumbersWrapper>
-			<TimeNumbersWrapper>
-				<BaseText style={{ fontSize: FontSize }}>
-					{props.displayTime.minute}
-				</BaseText>
-				<BaseText style={{ fontSize: FontSize }}>:</BaseText>
-			</TimeNumbersWrapper>
-			<TimeNumbersWrapper>
-				<BaseText style={{ fontSize: FontSize }}>
-					{props.displayTime.second}
-				</BaseText>
-			</TimeNumbersWrapper>
-		</FlexRowAlignCenter>
-	);
-}
 
 export function Tracker({ navigation }) {
 	const ThemeContext = useContext(ThemeManagerContext);
@@ -114,7 +72,6 @@ export function Tracker({ navigation }) {
 	const handleButtonPress = useCallback(async () => {
 		if (!timer.get('isRunning')) {
 			const { data } = await TimerService.clockIn();
-			console.log(data);
 			setTimer(prevState => {
 				return prevState
 					.set('isRunning', true)
@@ -123,7 +80,6 @@ export function Tracker({ navigation }) {
 					.set('startTime', data.time.startTime);
 			});
 		} else {
-			console.log(timer.get('timerId'));
 			await TimerService.clockOut(timer.get('timerId'));
 			setTimer(prevState => {
 				return prevState.set('isRunning', false);
