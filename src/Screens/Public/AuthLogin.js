@@ -4,7 +4,12 @@ import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';
 import { BaseButton } from '../../Atoms/Button';
 import { BaseText, ErrorMessage, Logo } from '../../Atoms/Text';
-import { BaseDivider, BigDivider, MediumDivider, SmallDivider, } from '../../Atoms/Dividers';
+import {
+	BaseDivider,
+	BigDivider,
+	MediumDivider,
+	SmallDivider,
+} from '../../Atoms/Dividers';
 import { GreenLink } from '../../Atoms/Links';
 import { StyledKeyboardAvoidingView } from '../../Atoms/Wrappers';
 import { Screens } from '../../Lib/screens';

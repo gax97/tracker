@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StatusBar } from 'react-native';
 import styled from 'styled-components';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { FlexColumn, FlexRowAlignCenter } from '../../Atoms/Flex';

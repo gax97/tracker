@@ -1,4 +1,4 @@
-export function formatTime(time) {
+export function formatTime(time, formated = false) {
 	let seconds = Math.floor(time),
 		hours = Math.floor(seconds / 3600);
 
@@ -17,6 +17,10 @@ export function formatTime(time) {
 
 	if (seconds < 10) {
 		seconds = '0' + seconds;
+	}
+
+	if (formated) {
+		return hours + ':' + minutes + ':' + seconds;
 	}
 
 	return { hour: hours, minute: minutes, second: seconds };

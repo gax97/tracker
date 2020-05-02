@@ -23,13 +23,20 @@ export const Overlay = styled.View`
 `;
 export const FlexRow = styled.View`
 	flex-direction: row;
+	${props =>
+		props.justifyContent && `justify-content: ${props.justifyContent}`};
 `;
 export const flexRow = css`
 	flex-direction: row;
-`
+`;
 export const CenterFlexStretch = styled.View`
 	flex: 1;
 	align-items: center;
 	justify-content: center;
 	align-self: stretch;
+`;
+export const PageWrapper = styled.SafeAreaView`
+	background-color: ${props => props.theme.colorPrimary};
+	flex: 1;
+	align-items: center;
 `;

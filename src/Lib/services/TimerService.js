@@ -6,7 +6,6 @@ import { formatTime } from '../helpers';
 class TimerService {
 	constructor(apiService) {
 		this.apiService = apiService;
-		this.currentTimerId = null;
 	}
 
 	clockIn(label = 'Unlabled') {

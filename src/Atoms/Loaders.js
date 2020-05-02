@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { Overlay, overlayCss } from './Wrappers';
-import React from "react";
+import React from 'react';
 
 export const Loader = styled.ActivityIndicator`
 	${overlayCss};
 `;
 
-export function OverlayLoader({loading}) {
+export function OverlayLoader({ loading }) {
 	if (!loading) {
 		return null;
 	}

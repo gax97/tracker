@@ -12,8 +12,8 @@ const GreenText = styled.Text`
 
 export const GreenLink = ({ text, onPress }) => {
 	return (
-		<StyledLink onPress={onPress}>
+		<TouchableWithoutFeedback onPress={onPress}>
 			<GreenText> {text}</GreenText>
-		</StyledLink>
+		</TouchableWithoutFeedback>
 	);
 };

@@ -16,8 +16,8 @@ class Api {
 		this.token = null;
 	}
 
-	get(path) {
-		return this.api.get(path);
+	get(path, headers) {
+		return this.api.get(path, { headers: { ...headers } });
 	}
 
 	post(path, body, headers) {

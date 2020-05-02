@@ -1,22 +1,22 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, StatusBar, Text } from 'react-native';
-import { BaseView } from '../../Atoms/Flex';
-import { BaseText } from '../../Atoms/Text';
 import { GreenLink } from '../../Atoms/Links';
 import { UserManagerContext } from '../../Context/UserManager';
+import { CenterFlexStretch, PageWrapper } from '../../Atoms/Wrappers';
+import { ThemeManagerContext } from '../../Context/ThemeManager';
 
-export function Profile({ route, navigation }) {
+export function Profile() {
 	const { logout } = useContext(UserManagerContext);
+	const ThemeContext = useContext(ThemeManagerContext);
 
 	return (
-		<>
-			<SafeAreaView>
-				<BaseView>
-					<BaseText>Profile</BaseText>
-					<BaseText>Soon....</BaseText>
-					<GreenLink text="Logout" onPress={() => logout()} />
-				</BaseView>
-			</SafeAreaView>
-		</>
+		<PageWrapper>
+			<GreenLink text="Logout" onPress={() => logout()} />
+			<CenterFlexStretch>
+				<GreenLink
+					text="Change theme"
+					onPress={() => ThemeContext.toggleTheme()}
+				/>
+			</CenterFlexStretch>
+		</PageWrapper>
 	);
 }

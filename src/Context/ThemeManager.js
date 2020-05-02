@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { useColorScheme, Alert } from 'react-native';
+import { useColorScheme } from 'react-native';
 
 export const Themes = {
 	light: {

@@ -1,15 +1,10 @@
-import React, {
-	useCallback,
-	useContext,
-	useLayoutEffect,
-	useState,
-} from 'react';
+import React, { useCallback, useContext, useLayoutEffect, useState, } from 'react';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { BaseText, TextLarge } from '../../Atoms/Text';
 import { MediumDivider } from '../../Atoms/Dividers';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { CenterFlexStretch, FlexRow } from '../../Atoms/Wrappers';
+import { CenterFlexStretch, FlexRow, PageWrapper } from '../../Atoms/Wrappers';
 import { ConfirmButton } from '../../Molecules/Buttons/ConfirmButton';
 import TimerService from '../../Lib/services/TimerService';
 import { CancelButton } from '../../Molecules/Buttons/CancelButton';
@@ -20,11 +15,6 @@ import { TimeDisplay } from '../../Molecules/TimeDisplay';
 var duration = require('dayjs/plugin/duration');
 
 dayjs.extend(duration);
-const PageWrapper = styled.SafeAreaView`
-	background-color: ${props => props.theme.colorPrimary};
-	flex: 1;
-	align-items: center;
-`;
 const TopSectionWrapper = styled.View`
 	align-self: flex-start;
 	padding-left: 20px;
@@ -44,12 +34,12 @@ export function Tracker({ navigation }) {
 	const { timer, setTimer, loading: loadingTimerData } = useContext(
 		TimerContext,
 	);
-	const date = dayjs();
 	const [displayTime, setDisplayTime] = useState({
 		hour: '00',
 		minute: '00',
 		second: '00',
 	});
+	const date = dayjs();
 	const startTime = timer.get('startTime');
 	const isRunning = timer.get('isRunning');
 	useLayoutEffect(() => {

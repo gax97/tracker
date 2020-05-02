@@ -35,6 +35,12 @@ class UserService {
 			throw e;
 		}
 	}
+
+	getReports() {
+		return this.apiService.get('time/', {
+			Authorization: `Bearer ${this.apiService.token}`,
+		});
+	}
 }
 
 export default new UserService(Api);
