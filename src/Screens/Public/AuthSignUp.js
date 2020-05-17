@@ -96,9 +96,6 @@ export function AuthSignUp({ navigation }) {
 						</FlexRowAlignCenter>
 						<BaseDivider />
 						<SmallDivider />
-						<BaseButton onPress={ThemeContext.toggleTheme}>
-							<BaseText>Change theme</BaseText>
-						</BaseButton>
 					</FlexColumn>
 				</StyledKeyboardAvoidingView>
 			</AuthLoginWrapper>
