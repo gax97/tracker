@@ -2,28 +2,29 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import { useColorScheme } from 'react-native';
+import { Colors } from "../Lib/constants";
 
 export const Themes = {
 	light: {
-		colorPrimary: '#ffffff',
+		colorPrimary: Colors.MainLight,
 		colorSecondary: 'black',
-		buttonPrimary: 'orange',
-		background: '#ffffff',
+		buttonPrimary: Colors.MainGreen,
+		background: Colors.MainLight,
 		text: {
 			color: {
-				primary: '#1F2630',
+				primary: Colors.MainDark,
 				secondary: 'gray',
 			},
 		},
 	},
 	dark: {
-		colorPrimary: '#1F2630',
+		colorPrimary: Colors.MainDark,
 		colorSecondary: 'white',
-		buttonPrimary: 'red',
-		background: '#1F2630',
+		buttonPrimary: Colors.MainGreen,
+		background: Colors.MainDark,
 		text: {
 			color: {
-				primary: '#ffffff',
+				primary: Colors.MainLight,
 				secondary: 'blue',
 			},
 		},

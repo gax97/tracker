@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import { OpenEye } from '../Atoms/Icons/Svg/OpenEye';
 import { ClosedEye } from '../Atoms/Icons/Svg/ClosedEye';
 
+/**
+ * @param visible {boolean}
+ * @param onPress {function}
+ */
 export const PasswordEyeIcon = ({ visible, onPress }) => {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
