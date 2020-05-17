@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import { useColorScheme } from 'react-native';
-import { Colors } from "../Lib/constants";
+import { Colors } from '../Lib/constants';
 
 export const Themes = {
 	light: {

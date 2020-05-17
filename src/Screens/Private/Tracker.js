@@ -1,4 +1,9 @@
-import React, { useCallback, useContext, useLayoutEffect, useState, } from 'react';
+import React, {
+	useCallback,
+	useContext,
+	useLayoutEffect,
+	useState,
+} from 'react';
 import { ThemeManagerContext } from '../../Context/ThemeManager';
 import { BaseText, TextLarge } from '../../Atoms/Text';
 import { MediumDivider } from '../../Atoms/Dividers';

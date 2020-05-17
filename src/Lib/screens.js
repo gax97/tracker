@@ -4,4 +4,4 @@ export const Screens = {
 	Profile: 'Profile',
 	Reports: 'Reports',
 	Tracker: 'Tracker',
-}
+};

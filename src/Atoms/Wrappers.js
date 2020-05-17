@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Colors } from "../Lib/constants";
+import { Colors } from '../Lib/constants';
 
 export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
 	padding-left: 20px;
@@ -43,5 +43,5 @@ export const PageWrapper = styled.SafeAreaView`
 	align-items: center;
 `;
 export const OpacityWrapper = styled.View`
-	${props=>props.visible ? 'opacity: 1;' : 'opacity: 0;'}
-`
+	${props => (props.visible ? 'opacity: 1;' : 'opacity: 0;')}
+`;
