@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
 	Alert,
+	Platform,
 	ScrollView,
 	StyleSheet,
 	TouchableWithoutFeedback,
@@ -67,8 +68,9 @@ export function Reports() {
 			<FlexRow style={styles.header}>
 				<BaseText>Sort by</BaseText>
 				<RNPickerSelect
+					useNativeAndroidPickerStyle={false}
 					onValueChange={setSort}
-					placeholder={items[0]}
+					placeholder={Platform.OS === 'ios' ? items[0] : {}}
 					items={items}
 					style={{
 						...pickerSelectStyles,
@@ -152,6 +154,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		justifyContent: 'space-around',
 		alignItems: 'center',
+		height: 200,
 	},
 });
 
@@ -169,8 +172,8 @@ const pickerSelectStyles = StyleSheet.create({
 		fontSize: 16,
 		paddingHorizontal: 10,
 		paddingVertical: 8,
-		borderWidth: 0.5,
-		borderColor: 'purple',
+		borderWidth: 2,
+		borderColor: 'gray',
 		borderRadius: 8,
 		color: 'white',
 		paddingRight: 30, // to ensure the text is never behind the icon
