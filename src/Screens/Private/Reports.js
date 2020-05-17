@@ -63,6 +63,7 @@ export function Reports() {
 
 	return (
 		<PageWrapper>
+			<SmallDivider />
 			<TextLarge>Reports</TextLarge>
 			<SmallDivider />
 			<FlexRow style={styles.header}>
@@ -154,7 +155,6 @@ const styles = StyleSheet.create({
 		width: '100%',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		height: 200,
 	},
 });
 
