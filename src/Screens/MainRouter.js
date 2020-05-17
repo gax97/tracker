@@ -10,7 +10,10 @@ export const MainRouter = () => {
 	const { user } = React.useContext(UserManagerContext);
 
 	useEffect(() => {
-		SplashScreen.hide();
+		setTimeout(()=>{
+
+
+		}, 3000)
 	}, []);
 
 	return (
