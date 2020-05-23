@@ -1,8 +1,7 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { TouchableWithoutFeedback } from 'react-native';
 
-const StyledLink = styled.TouchableWithoutFeedback``;
 const GreenText = styled.Text`
 	color: #20c284;
 	font-size: 16px;

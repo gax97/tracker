@@ -64,7 +64,7 @@ export function Reports() {
 	return (
 		<PageWrapper>
 			<SmallDivider />
-			<TextLarge>Reports</TextLarge>
+			<TextLarge color={Colors.MainGreen}>Reports</TextLarge>
 			<SmallDivider />
 			<FlexRow style={styles.header}>
 				<BaseText>Sort by</BaseText>

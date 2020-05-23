@@ -16,6 +16,7 @@ export const Themes = {
 				secondary: 'gray',
 			},
 		},
+		secondaryBackground: '#d9dddc',
 	},
 	dark: {
 		colorPrimary: Colors.MainDark,
@@ -28,21 +29,14 @@ export const Themes = {
 				secondary: 'blue',
 			},
 		},
+		secondaryBackground: '#091115',
 	},
 };
 export const ThemeManagerContext = React.createContext({});
 
 export const ThemeManager = ({ children }) => {
-	const colorSchemeName = useColorScheme();
+	// const colorSchemeName = useColorScheme();
 	const [theme, setTheme] = useState(Themes.dark);
-
-	// useEffect(() => {
-	// 	if (colorSchemeName === 'dark') {
-	// 		setTheme(Themes.dark);
-	// 	} else {
-	// 		setTheme(Themes.light);
-	// 	}
-	// }, [colorSchemeName]);
 
 	const toggleTheme = () => {
 		if (theme === Themes.light) {
